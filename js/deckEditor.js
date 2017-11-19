@@ -8,8 +8,8 @@ var deck = [];
 
 $( document ).ready(function() {
     $('#editor').text("Loading..");
-    getJSON("/json/icons.json").then(function(icons){ 
-        getJSON("/include/listDecks.php").then(function(card_sets){
+    getJSON("json/icons.json").then(function(icons){ 
+        getJSON("include/listDecks.php").then(function(card_sets){
             if(localStorage.deck === undefined)
                 localStorage.deck = "[]";
             $('#editor').empty();
@@ -22,7 +22,7 @@ $( document ).ready(function() {
                     "name":deckName,
                     "deck":localStorage.deck
                 };
-                $.post( "/include/saveDeck.php",request).done(function( data ) {
+                $.post( "include/saveDeck.php",request).done(function( data ) {
                   window.alert(data);
                 });
             }));
@@ -64,7 +64,7 @@ $( document ).ready(function() {
             $('#editor').append($('<div/>').addClass('card_list'));
             $('#editor').append($('<div/>').addClass('deck'));
             renderDeck();
-            $.ajax("/include/listCardSets.php").done(function(data){
+            $.ajax("include/listCardSets.php").done(function(data){
                 var sets = JSON.parse(data);
                 for(var i = 0; i < sets.length; i++){
                     $('#editor .card_set').append(
@@ -74,7 +74,7 @@ $( document ).ready(function() {
             });
             $('#editor .card_set').change(function(){
                 var set_name = $(this).val();
-                $.ajax("/include/loadCardSet.php?name="+set_name).done(function(data){
+                $.ajax("include/loadCardSet.php?name="+set_name).done(function(data){
                     current_set = JSON.parse(data);
                     renderSet(icons);  
                 });
