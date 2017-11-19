@@ -20,6 +20,7 @@ for root, dirs, files in os.walk(path, topdown=False):
         icon = name.split('.')[0]
         rel = (os.path.join(root, name))
         rel = rel.replace(path,"http://game-icons.net/icons/")
+        rel = rel.replace("svg","png")
         output[icon] =  rel
 
 with open(args.output, 'w') as outfile:

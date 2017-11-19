@@ -32,6 +32,11 @@ button:hover {
   background: #cccccc;
   text-decoration: none;
 }
+
+img[src*="loadImage"]{
+    filter: invert(100%);
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
@@ -144,6 +149,7 @@ label{
 	width: 31px;
 	height: 31px;
 	background-image: url("../include/loadImage.php?icon=swap-bag");
+    filter:invert(100%);
 	background-size: 100% 100%;
 }
 
@@ -211,14 +217,17 @@ label{
 
 .card .sideBar .strength, .card .descr .strength{
 	background-image: url("../include/loadImage.php?icon=crossed-swords");
+    filter:invert(100%);
 }
 
 .card .sideBar .arcana, .card .descr .arcana{
 	background-image: url("../include/loadImage.php?icon=seven-pointed-star");
+    filter:invert(100%);
 }
 
 .card .sideBar .health, .card .descr .health{
 	background-image: url("../include/loadImage.php?icon=heart");
+    filter:invert(100%);
 }
 
 .card .icon{
@@ -330,6 +339,7 @@ nav .thumb{
 	background-color:white;
 	background-size: 100% 100%;
 	background-image: url("../include/loadImage.php?icon=menu");
+    filter:invert(100%);
 	margin:4px;
 }
 
