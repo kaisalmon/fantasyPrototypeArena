@@ -1,0 +1,151 @@
+body{
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+    
+    /* Rules below not implemented in browsers yet */
+    -o-user-select: none;
+    user-select: none;
+    overflow-y: hidden;
+}
+
+.draggable{
+    position: absolute;
+    cursor:grab;
+}
+
+
+.grabbed{
+    box-shadow: 10px 10px 3px rgba(0,0,0,0.5);
+    margin-left:-10px;
+    margin-top:-10px;
+    z-index: 90;
+}
+ 
+img {
+   pointer-events: none;
+}
+
+.deck{
+    border:4px solid black;
+	border-radius: 5px;
+	width: 5cm;
+	height:5cm;
+	margin:2.5px;
+	display: block;
+	position: relative;
+	background-color: white;
+	cursor:pointer;
+    box-sizing: border-box;
+	overflow:hidden;
+	text-align:center;
+	padding-top:20px;
+	font-size:20px;
+}
+
+.card.facedown > *{
+    display: none;
+}
+
+.card.hand{
+    -o-filter:invert(20%);
+    -webkit-filter:invert(20%);
+    -moz-filter:invert(20%);
+    filter:invert(20%);
+}
+
+
+.card:hover .show{
+    display:block;
+}
+
+#contextmenu{
+    position: absolute;
+    display:inline-block;
+    border:solid 1px black;
+    background:white;
+    z-index:999;
+    width:150px;
+}
+
+#contextmenu button{
+    display:block;
+    width:94%;
+}
+
+.card .damage, .gold{
+    color:white;
+    border-radius:20px;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+
+    border: solid 2px black;
+    padding-bottom: 30px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 20px;
+    
+    text-align: center;
+}
+.card .damage{
+    background-color: red;
+    position: relative;    
+    left: 80px;
+    top: 10px;
+}
+
+.card.stealth .damage{
+    background-color: cyan;
+    color:black;
+    position: relative;    
+    left: 80px;
+    top: 10px;
+}
+
+.gold{
+    background-color: gold;
+    color:black;
+    position: relative;
+    margin-left:60px;
+    padding:5px;
+}
+
+.card.stealth{
+    -o-filter:invert(100%);
+    -moz-filter:invert(100%);
+    -webkit-filter:invert(100%);
+    filter:invert(100%);
+}
+
+.card{
+    transition:transform 0.3s ease-in-out, height 0.3s  ease-in-out, margin-top  0.3s  ease-in-out;
+    margin-top:0cm;
+    z-index:2;
+}
+
+
+.card > div, .card .icon{
+    transition: opacity 0.3s  ease-in-out, top  0.3s  ease-in-out;
+}
+
+
+.card.mini .titlebar, .card.mini .descr, .card.mini .cost, .card.mini .role{
+    opacity:0;
+}
+
+.card.mini .sideBar{
+    top: 0px;
+}
+
+.card.mini{
+    z-index:1;
+    height: 3.5cm;
+    left:0px;
+    margin-top: 1cm;
+    transform:scale(0.65, 0.65);
+}
+
+.card.mini .icon{
+	top:0px;
+}

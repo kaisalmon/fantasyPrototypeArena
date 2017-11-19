@@ -1,0 +1,58 @@
+#editor{
+    position: relative;
+    height: calc(100vh - 150px);
+    padding-bottom: 60px;
+}
+
+.card_option .card{
+    position: absolute;
+    display:none;
+    z-index: 1000;
+}
+.card_option:hover .card{
+    display:inline-block;
+}
+.card .cost{
+    padding-left: 0;
+}
+.card_option{
+    display:block;
+    position: relative;
+    width:100%;
+}
+
+.card_set{
+    width:240px;
+}
+
+.roles{
+    width:60px;
+}
+
+.card_list, .deck{
+    width:300px;
+    background-color: #CCC;
+    max-height: 80%;
+    padding:3px;
+}
+
+
+.deck{
+    position: absolute;
+    top:2em;
+    height: calc(100% - 2em);
+    width: 400px;
+    left: 350px;
+}
+
+.stats{
+    position: absolute;
+    top: 0;
+    background: #CCC;
+    padding: 10px;
+    margin: 3px;
+    width: 200px;
+    right: 40px;
+    border-radius: 10px;
+    box-shadow: rgba(0,0,0,0.5) 5px 5px 5px;
+}

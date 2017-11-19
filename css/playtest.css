@@ -1,0 +1,31 @@
+.player{
+    display:inline-block;
+}
+
+.player, .hero{
+    margin:4px;
+    padding:4px;;
+    border:solid 2px black;
+    border-radius: 4px;
+}
+
+.graph{
+    height:200px;
+    background:#DDD;
+    white-space: nowrap;
+    padding: 18px;
+}
+
+.graph .block{
+    background-color: white;
+    width:11px;
+    vertical-align: bottom;
+    font-size: 11px;
+    text-align: center;
+    border:black solid 1px;
+    display:inline-block;
+}
+.graph .block:nth-of-type(2n){
+    background-color: black;
+    color:white;
+}

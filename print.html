@@ -1,0 +1,41 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    
+        <title>Kai Card Game Shenanigans</title>
+        <meta name="description" content="Kai Card Game">
+        <meta name="author" content="Kai Salmon">
+        
+        <link rel="stylesheet" id="css" href="https://cardgame-kaiexample.c9users.io/css/styles.1.css">
+        <link href='https://fonts.googleapis.com/css?family=Rokkitt' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+        
+        <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    
+    <body>      
+        <h1>    
+             Preview  
+        </h1>
+        <div id="print"></div>
+        <script src="js/renderCard.js"></script>
+        <script src="js/print.js"></script>
+        <script src="js/header.js"></script>
+        <script type="text/javascript">
+            /* global $ */
+            $('body').click(function(){
+                console.log($('#css').prop('href'));
+                if($('#css').prop('href') == 'https://cardgame-kaiexample.c9users.io/css/styles.1.css')
+                    $('#css').prop('href', 'https://cardgame-kaiexample.c9users.io/css/styles.css');
+                else
+                    $('#css').prop('href', 'https://cardgame-kaiexample.c9users.io/css/styles.1.css');
+                renderAll();
+            });
+        </script>
+    </body>
+</html>
