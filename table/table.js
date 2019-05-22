@@ -5,12 +5,14 @@
 var icons = [];
 var grabbed = undefined;
 var next_id = 0;
-var one_deck = [], two_deck = [];
+var next_deck_id = 0;
+
+var deck_elems = {}
+
 var seed = 0;
 var $contextTarget = undefined;
 
 function emit(payload, target){
-    console.log(payload, target)
     var id = getUrlParameter("id");
      var data = {
         "id":id,
@@ -63,6 +65,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
 };
 
 function spawnCard(card,x,y){
+    console.log(card)
     var $c = renderCard('#table',card,icons).addClass("draggable").addClass("card_"+(next_id));
     $c.attr("card_id",next_id);
     next_id++;
@@ -98,22 +101,20 @@ function spawnCard(card,x,y){
     return $c;
 }
 
-function spawnDeck(deck_id, displayName){
-    
+function spawnDeck(deck,player_id, displayName){
+    var deck_id = next_deck_id++;
+
     var $deck = $('<div/>').addClass('deck deck'+deck_id).text(displayName).appendTo($('#table')).click(
         function(e){
-            if($(e.target).is('input')){
-                return;
-            }
             emit({
                 "type":"draw",
                 "deck_id":""+deck_id,
             });
         }    
     );
-    
-    $deck.attr("player_id",deck_id);
-    $deck.append($('<div/>').addClass("gold").text("15"));
+    deck_elems[deck_id] = $deck; 
+    $deck.attr("player_id",player_id);
+    $deck.data("deck",deck);
     
     $deck.on("contextmenu",function(e){
          if( e.button == 2 ) {
@@ -127,24 +128,6 @@ function spawnDeck(deck_id, displayName){
          }
         return true;
     });
-    
-    $deck.append($('<input/>').change(function(){
-        var name = $(this).val();
-        var deck = one_deck;
-        if(deck_id == 2)
-            deck = two_deck;
-        for(var i = 0; i < deck.length;i++){
-            if(deck[i].name.toUpperCase().trim() == name.toUpperCase().trim()){
-                emit({
-                    "type":"search",
-                    "i":i,
-                    "deck_id":deck_id
-                });
-                $(this).val("");
-                return;
-            }
-        }
-    }));
 }
 
 Array.prototype.move = function (old_index, new_index) {
@@ -247,10 +230,11 @@ $( document ).ready(function() {
         shuffle(one_deck);
         shuffle(two_deck);
         
-        
-        spawnDeck(2,"Deck One");
-        spawnDeck(1,"Deck Two");
-        
+        spawnDeck(one_deck.filter((c)=>c.type == 'Class' || c.type == 'Race'),1,"Deck One Characters");
+        spawnDeck(one_deck.filter((c)=>c.type != 'Class' && c.type != 'Race'),1,"Deck One Actions");
+        spawnDeck(two_deck.filter((c)=>c.type == 'Class' || c.type == 'Race'),2,"Deck Two Characters");
+        spawnDeck(two_deck.filter((c)=>c.type != 'Class' && c.type != 'Race'),2,"Deck Two Actions");
+
         $(document).on({'mousemove touchmove':function(e){
             if(grabbed){            
                 e.pageX = e.pageX ? e.pageX : e.originalEvent.touches[0].pageX;
@@ -283,7 +267,7 @@ $( document ).ready(function() {
                         processInstr(instr[i]);
                     }
                 }catch(e){
-                    console.log("ERROR!");
+                    console.error(result, e);
                 }
             });
         },100);
@@ -291,7 +275,7 @@ $( document ).ready(function() {
 });
 
 function processInstr(instr){
-        console.log(instr);
+    console.log(instr);
     if(instr.type == "move_card"){
         var cy = parseInt(instr.y);
         var cx = parseInt(instr.x);
@@ -302,15 +286,11 @@ function processInstr(instr){
 
         
     }else if(instr.type == "draw"){
-        var $c;
-        if(instr.deck_id=="1"){
-            var p = $('.deck1').offset();
-            $c = spawnCard(one_deck.pop(),p.left,p.top);
-        }else{
-            var p = $('.deck2').offset();
-            $c = spawnCard(two_deck.pop(),p.left,p.top);
-        }
-        if( (instr.deck_id=="1") != (getUrlParameter("player")!="one")){
+        var $d = deck_elems[instr.deck_id]
+        var p = $d.offset();
+        console.log($d, $d.data(), $d.data('deck'))
+        var $c = spawnCard($d.data('deck').pop(),p.left,p.top);
+        if($d.attr('player_id') != getUrlParameter("player")){
             $c.addClass("facedown");
         }else{
             $c.addClass("hand");

@@ -2,11 +2,11 @@
     include '../include/utils.php';
     
     if(is_json($_POST['action'])){
-        $one = "games/" . $_POST['id']."-one.json";
-        $two = "games/" . $_POST['id']."-two.json";
-        if($_POST['target'] == 'one' || $_POST['target'] == 'both')
+        $one = "games/" . $_POST['id']."-1.json";
+        $two = "games/" . $_POST['id']."-2.json";
+        if($_POST['target'] == '1' || $_POST['target'] == 'both')
             json_append($one);
-        if($_POST['target'] == 'two' || $_POST['target'] == 'both')
+        if($_POST['target'] == '2' || $_POST['target'] == 'both')
             json_append($two);
         echo "Success";
     }else{
